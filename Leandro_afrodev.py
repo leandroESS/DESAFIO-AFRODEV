@@ -23,12 +23,10 @@ with warnings.catch_warnings(record=True):
 
 
 def total_atletas():
-    print(f"A quantidade de atletas que disputaram as Olimpíadas de Tokyo 2020 | 2021 foram {len(athletes_df)} atletas")
-    print(type(len(athletes_df)))
-
+    print(f"\nA quantidade de atletas que disputaram as Olimpíadas de Tokyo 2020 | 2021 foram {len(athletes_df)} atletas")
 
 def total_generos():
-    print(f"Total de Homens que participaram da Olimpíada foi {entriesGender_df['Male'].sum()}")
+    print(f"\nTotal de Homens que participaram da Olimpíada foi {entriesGender_df['Male'].sum()}")
     print(f"Total de mulheres que participaram da Olimpíada foi {entriesGender_df['Female'].sum()}")
 
     grupos = ['Homens', 'Mulheres']
@@ -38,12 +36,17 @@ def total_generos():
 
 
 def total_atle_espor():
-    print(athletes_df.groupby(by='Discipline').size())
+    print(f"\nO total de atletas por esporte são:\n\n {athletes_df.groupby(by='Discipline').size()}")
+
+    # plotando o gráfico
+    x = athletes_df.groupby(by='Discipline').size()
+    x.plot(kind='bar', figsize=(50, 50))
+    matplotlib.pyplot.show()
 
 
 def total_meda_pais():
     x = 0
-
+    print("\n")
     while x < len(medals_df):
         medals_df["Total de medalhas"] = medals_df["Gold"] + medals_df["Silver"] + medals_df["Bronze"]
         print(f"o País   {medals_df.loc[x, 'Team/NOC']}  Possui  {medals_df.loc[x, 'Total de medalhas']} medalha(s)")
@@ -58,7 +61,7 @@ def total_meda_pais():
 def pais_mais_ouro_prata_bronze():
     y = (medals_df["Gold"].argmax())
     x = medals_df.loc[y, "Gold"]
-    print("País com maior número de moedas de ouro foi: " + medals_df.loc[y, "Team/NOC"] + f", com {x}  medalhas.")
+    print("\nPaís com maior número de moedas de ouro foi: " + medals_df.loc[y, "Team/NOC"] + f", com {x}  medalhas.")
 
     y = (medals_df["Silver"].argmax())
     z = medals_df.loc[y, "Silver"]
@@ -75,6 +78,7 @@ def pais_mais_ouro_prata_bronze():
 
 
 def pais_menos_ouro_prata_bronze():
+    print("\n")
     contador = 0
     y = (medals_df["Gold"].min())  # retona 0, o menor valar de medalhas de ouro
     while contador < len(medals_df):  # laço pra printar todos que tenham medalha 0
@@ -102,11 +106,12 @@ def pais_menos_ouro_prata_bronze():
         contador = contador + 1
 
 def esportes_participantes():
-    print("A seguir os Esportes que participaram das Olimpíadas de Tokyo 2020 | 2021 : ")
+    print("\nA seguir os Esportes que participaram das Olimpíadas de Tokyo 2020 | 2021 : \n")
     print(entriesGender_df['Discipline'])
 
 
 def esportes_homens_maisQ_mulheres():
+    print("\nOs esportes com mais homens que mulheres são:\n")
     x = 0
     while x < len(entriesGender_df):
         if entriesGender_df.loc[x, "Female"] < entriesGender_df.loc[x, "Male"]:
@@ -116,6 +121,7 @@ def esportes_homens_maisQ_mulheres():
 
 
 def esportes_mulheres_maisQ_homens():
+    print("\nOs esportes com mais mulheres que homens são:\n")
     x = 0
     while x < len(entriesGender_df):
         if entriesGender_df.loc[x, "Female"] > entriesGender_df.loc[x, "Male"]:
@@ -125,15 +131,16 @@ def esportes_mulheres_maisQ_homens():
 
 
 def qtd_treinadores_pais():
+    print("\nA quantidade de treinadores por país são: \n")
     print(coaches_df['NOC'].value_counts())
 
 
 def pais_mais_treinadores():
-    print(
-        f"O País com mais treinadores é: {coaches_df['NOC'].value_counts()[:1].index.tolist()}")  # 1 pois quer apenas o primeiro
+    print(f"\nO País com mais treinadores é: {coaches_df['NOC'].value_counts()[:1].index.tolist()}")  # 1 pois quer apenas o primeiro
 
 
 def qtd_treinadores_esporte():
+    print("A quantidade de treinadores por esporte são: \n")
     print(coaches_df['Discipline'].value_counts())
 
     #plotando o gráfico
@@ -146,11 +153,13 @@ def qtd_treinadores_esporte():
 
 
 def time_por_esporte():
+    print("A quantidade de time por esporte são: \n")
     group = teams_df.groupby(["Discipline", "Name"])
     print(group.size().reset_index(name='counts'))
 
 
 if __name__ == '__main__':
+
     x = 0
     while x != 14:
         print("\n======== Bem vindo á tabela de dados da olimpíada de Tokio 2020 | 2021 ========\n")
@@ -217,8 +226,7 @@ if __name__ == '__main__':
             time_por_esporte()
 
         elif x == 14:
-            print(
-                "\nTabela de dados da olimpíada de Tokio 2020 | 2021 finalizada com sucesso, até mais e aproveite a música")
+            print("\nTabela de dados da olimpíada de Tokio 2020 | 2021 finalizada com sucesso, até mais e aproveite a música")
             mixer.init()
             mixer.music.load('audio.mp3')
             mixer.music.play()
