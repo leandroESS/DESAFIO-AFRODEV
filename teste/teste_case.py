@@ -1,4 +1,4 @@
-from case1 import total_atletas, total_generos
+from Leandro_afrodev import total_atletas, total_generos
 
 
 def teste_retorna_total_atletas():
