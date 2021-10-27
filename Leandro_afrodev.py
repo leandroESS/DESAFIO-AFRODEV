@@ -2,7 +2,6 @@ import matplotlib.pyplot
 import pandas as pd
 from matplotlib import pyplot as plt
 from pygame import mixer
-import numpy as np
 
 athletes = "/home/leandro/Documentos/trilha-Python/case/final/Athletes.xlsx"
 coaches = "/home/leandro/Documentos/trilha-Python/case/final/Coaches.xlsx"
@@ -59,8 +58,8 @@ def total_meda_pais():
 
 
 def pais_mais_ouro_prata_bronze():
-    y = (medals_df["Gold"].argmax())
-    x = medals_df.loc[y, "Gold"]
+    y = (medals_df["Gold"].argmax()) #retorna indice do maior
+    x = medals_df.loc[y, "Gold"] # retora a quantidade
     print("\nPaís com maior número de moedas de ouro foi: " + medals_df.loc[y, "Team/NOC"] + f", com {x}  medalhas.")
 
     y = (medals_df["Silver"].argmax())
@@ -147,9 +146,6 @@ def qtd_treinadores_esporte():
     x = coaches_df['Discipline'].value_counts()
     x.plot(kind = 'pie', autopct = '%0.2f%%', figsize = (30,30))
     matplotlib.pyplot.show()
-
-
-
 
 
 def time_por_esporte():
